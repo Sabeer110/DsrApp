@@ -42,7 +42,6 @@ jobs:
         with:
           python-version: '3.9'
 
-      # YEH LINE BADLI GAYI HAI: Hum naya, maintained action use kar rahe hain
       - name: Build with Buildozer
         uses: ArtemSBulgakov/kivy-buildozer-action@v1
         id: buildozer
