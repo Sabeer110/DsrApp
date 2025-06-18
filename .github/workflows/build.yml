@@ -4,16 +4,18 @@ on: [push]
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    # YEH SABSE ZAROORI BADLAV HAI: Hum 22.04 use kar rahe hain
+    runs-on: ubuntu-22.04
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # Hum pehle wala environment setup step use karenge jo dependencies install karta hai
+      # Hum build environment ko zaroori tools ke saath taiyyar karenge
       - name: Set up build environment for dependencies
         run: |
           sudo apt-get update
+          # Yahan humne libffi-dev aur libfreetype6-dev add kiye hain
           sudo apt-get install -y \
               git \
               zip \
@@ -32,27 +34,25 @@ jobs:
               zlib1g-dev \
               libgstreamer1.0-dev \
               gstreamer1.0-plugins-base \
-              gstreamer1.0-plugins-good
+              gstreamer1.0-plugins-good \
+              libffi-dev \
+              libfreetype6-dev
       
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.9'
 
-      # Yahan standard Buildozer Action use ho raha hai
+      # Standard Buildozer Action, isme koi badlav nahi hai
       - name: Build with Buildozer
         uses: arsenetar/kivy-buildozer-action@v1.3.1
         id: buildozer
         with:
-          # Aapki buildozer.spec file kahan hai
           spec_path: buildozer.spec
-          # Aap release ya debug build bana sakte hain
           build_mode: debug
 
-      # Yahan APK ko upload karne ka step hai
       - name: Upload APK artifact
         uses: actions/upload-artifact@v3
         with:
           name: dsr-app-apk
-          # Ye path Buildozer Action se milta hai
           path: ${{ steps.buildozer.outputs.apk_path }}
