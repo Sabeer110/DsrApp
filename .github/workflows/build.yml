@@ -42,14 +42,15 @@ jobs:
         with:
           python-version: '3.9'
 
-      # Standard Buildozer Action
+      # YEH LINE BADLI GAYI HAI: Hum naya, maintained action use kar rahe hain
       - name: Build with Buildozer
-        uses: arsenetar/kivy-buildozer-action@v1.3.1
+        uses: ArtemSBulgakov/kivy-buildozer-action@v1
         id: buildozer
         with:
           spec_path: buildozer.spec
           build_mode: debug
 
+      # APK upload karne wala step (ye pehle se theek hai)
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
