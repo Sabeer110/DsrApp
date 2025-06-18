@@ -4,18 +4,17 @@ on: [push]
 
 jobs:
   build:
-    # YEH SABSE ZAROORI BADLAV HAI: Hum 22.04 use kar rahe hain
+    # Hum stable ubuntu-22.04 istemal kar rahe hain
     runs-on: ubuntu-22.04
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # Hum build environment ko zaroori tools ke saath taiyyar karenge
+      # Zaroori system libraries install karna
       - name: Set up build environment for dependencies
         run: |
           sudo apt-get update
-          # Yahan humne libffi-dev aur libfreetype6-dev add kiye hain
           sudo apt-get install -y \
               git \
               zip \
@@ -43,7 +42,7 @@ jobs:
         with:
           python-version: '3.9'
 
-      # Standard Buildozer Action, isme koi badlav nahi hai
+      # Standard Buildozer Action
       - name: Build with Buildozer
         uses: arsenetar/kivy-buildozer-action@v1.3.1
         id: buildozer
@@ -52,7 +51,7 @@ jobs:
           build_mode: debug
 
       - name: Upload APK artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: dsr-app-apk
           path: ${{ steps.buildozer.outputs.apk_path }}
