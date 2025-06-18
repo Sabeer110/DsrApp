@@ -27,13 +27,13 @@ jobs:
       - name: Install system dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y git zip unzip autoconf libtool pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev libtinfo5 cmake libffi-dev libssl-dev libfreetype6-dev
+          # Yahan humne libjpeg-dev add kiya hai - YEH HI ASLI FIX HAI
+          sudo apt-get install -y git zip unzip autoconf libtool pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev libtinfo5 cmake libffi-dev libssl-dev libfreetype6-dev libjpeg-dev
 
       # Buildozer aur doosri Python libraries install karna
       - name: Install buildozer and dependencies
         run: |
           pip install --upgrade pip
-          # Hum Cython ko pehle install kar rahe hain, ye bohot stable tareeka hai
           pip install cython==0.29.34
           pip install --upgrade buildozer
 
